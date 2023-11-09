@@ -161,7 +161,7 @@ const CloseIcon = ({ className = "" }) => {
 };
 const ChevronIcon = ({ className = "" }) => {
     return (React.createElement("svg", { className: className, fill: "currentColor", viewBox: "0 0 20 20", xmlns: "http://www.w3.org/2000/svg" },
-        React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M4.5 15.75l7.5-7.5 7.5 7.5" })));
+        React.createElement("path", { fillRule: "evenodd", d: "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z", clipRule: "evenodd" })));
 };
 const SearchIcon = ({ className = "" }) => {
     return (React.createElement("svg", { className: className, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", xmlns: "http://www.w3.org/2000/svg" },
@@ -228,7 +228,7 @@ const Item = ({ item, primaryColor }) => {
         return THEME_DATA.bgHover[DEFAULT_THEME];
     }, [primaryColor]);
     const getItemClass = useCallback(() => {
-        const baseClass = "block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded";
+        const baseClass = "block transition duration-200 px-2 py-2 cursor-pointer select-none truncate";
         const selectedClass = isSelected
             ? `text-white ${bgColor}`
             : `text-gray-500 ${bgHoverColor} ${textHoverColor}`;
@@ -308,9 +308,9 @@ const Options = ({ list, noOptionsMessage, text, isMultiple, value, primaryColor
     }, [filterByText, removeValues]);
     return (React.createElement("div", { role: "options", className: classNames && classNames.list ? classNames.list : "max-h-72 overflow-y-auto" },
         filterResult.map((item, index) => (React.createElement(React.Fragment, { key: index }, "options" in item ? (React.createElement(React.Fragment, null,
-            React.createElement("div", { className: "px-2.5" },
+            React.createElement("div", { className: "px-1.5" },
                 React.createElement(GroupItem, { primaryColor: primaryColor || DEFAULT_THEME, item: item })),
-            index + 1 < filterResult.length && React.createElement("hr", { className: "my-1" }))) : (React.createElement("div", { className: "px-2.5" },
+            index + 1 < filterResult.length && React.createElement("hr", { className: "my-1" }))) : (React.createElement("div", { className: "px-1.5" },
             React.createElement(Item, { primaryColor: primaryColor || DEFAULT_THEME, item: item })))))),
         filterResult.length === 0 && React.createElement(DisabledItem, null, noOptionsMessage)));
 };
@@ -473,7 +473,7 @@ const Select = ({ options = [], value = null, onChange, onSearchInputChange, pla
                                 ? classNames.closeIcon
                                 : "w-5 h-5 p-0.5" }))),
                     React.createElement("div", { className: "px-1.5" },
-                        React.createElement(ChevronIcon, { className: `transition duration-300 w-6 h-6 p-0.5${open ? " transform rotate-180 text-gray-500" : " text-gray-300"}` })))),
+                        React.createElement(ChevronIcon, { className: `transition duration-300 w-6 h-6 p-0.5${open ? " transform rotate-90 text-gray-500" : " text-gray-300"}` })))),
             open && !isDisabled && (React.createElement("div", { className: classNames?.menu
                     ? classNames.menu
                     : "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700" },

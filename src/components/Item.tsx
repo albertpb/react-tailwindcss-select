@@ -41,7 +41,7 @@ const Item: React.FC<ItemProps> = ({ item, primaryColor }) => {
 
     const getItemClass = useCallback(() => {
         const baseClass =
-            "block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded";
+            "block transition duration-200 px-2 py-2 cursor-pointer select-none truncate";
         const selectedClass = isSelected
             ? `text-white ${bgColor}`
             : `text-gray-500 ${bgHoverColor} ${textHoverColor}`;

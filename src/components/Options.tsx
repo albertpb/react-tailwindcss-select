@@ -100,7 +100,7 @@ const Options: React.FC<OptionsProps> = ({
                 <React.Fragment key={index}>
                     {"options" in item ? (
                         <>
-                            <div className="px-2.5">
+                            <div className="px-1.5">
                                 <GroupItem
                                     primaryColor={primaryColor || DEFAULT_THEME}
                                     item={item}
@@ -110,7 +110,7 @@ const Options: React.FC<OptionsProps> = ({
                             {index + 1 < filterResult.length && <hr className="my-1" />}
                         </>
                     ) : (
-                        <div className="px-2.5">
+                        <div className="px-1.5">
                             <Item primaryColor={primaryColor || DEFAULT_THEME} item={item} />
                         </div>
                     )}
