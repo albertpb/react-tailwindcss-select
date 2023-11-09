@@ -54,7 +54,7 @@ const Item: React.FC<ItemProps> = ({ item, primaryColor }) => {
     return (
         <>
             {formatOptionLabel ? (
-                <div onClick={() => handleValueChange(item)}>
+                <div onClick={e => handleValueChange(e, item)}>
                     {formatOptionLabel({ ...item, isSelected })}
                 </div>
             ) : (
@@ -66,12 +66,12 @@ const Item: React.FC<ItemProps> = ({ item, primaryColor }) => {
                             tabIndex={0}
                             onKeyDown={(e: React.KeyboardEvent<HTMLLIElement>) => {
                                 if (e.key === " " || e.key === "Enter") {
-                                    handleValueChange(item);
+                                    handleValueChange(e, item);
                                 }
                             }}
                             aria-selected={isSelected}
                             role={"option"}
-                            onClick={() => handleValueChange(item)}
+                            onClick={e => handleValueChange(e, item)}
                             className={getItemClass()}
                         >
                             {item.label}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { KeyboardEvent, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 
 import { COLORS, DEFAULT_THEME, THEME_DATA } from "../constants";
 import useOnClickOutside from "../hooks/use-onclick-outside";
@@ -93,15 +93,15 @@ const Select: React.FC<SelectProps> = ({
     );
 
     const handleValueChange = useCallback(
-        (selected: Option) => {
+        (e: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>, selected: Option) => {
             function update() {
                 if (!isMultiple && !Array.isArray(value)) {
                     closeDropDown();
-                    onChange(selected);
+                    onChange(e, selected);
                 }
 
                 if (isMultiple && (Array.isArray(value) || value === null)) {
-                    onChange(value === null ? [selected] : [...value, selected]);
+                    onChange(e, value === null ? [selected] : [...value, selected]);
                 }
             }
 
@@ -115,7 +115,7 @@ const Select: React.FC<SelectProps> = ({
     const clearValue = useCallback(
         (e: React.MouseEvent<HTMLDivElement>) => {
             e.stopPropagation();
-            onChange(null);
+            onChange(e, null);
         },
         [onChange]
     );
@@ -125,7 +125,7 @@ const Select: React.FC<SelectProps> = ({
             if (isMultiple && Array.isArray(value) && value.length) {
                 e.stopPropagation();
                 const result = value.filter(current => item.value !== current.value);
-                onChange(result.length ? result : null);
+                onChange(e, result.length ? result : null);
             }
         },
         [isMultiple, onChange, value]
@@ -174,7 +174,7 @@ const Select: React.FC<SelectProps> = ({
                 classNames
             }}
             value={value}
-            handleValueChange={handleValueChange}
+            handleValueChange={(e, value: Option) => handleValueChange(e, value)}
         >
             <div className="relative w-full" ref={ref}>
                 <div

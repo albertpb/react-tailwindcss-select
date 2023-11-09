@@ -236,11 +236,11 @@ const Item = ({ item, primaryColor }) => {
             ? classNames.listItem({ isSelected })
             : `${baseClass} ${selectedClass}`;
     }, [bgColor, bgHoverColor, classNames, isSelected, textHoverColor]);
-    return (React.createElement(React.Fragment, null, formatOptionLabel ? (React.createElement("div", { onClick: () => handleValueChange(item) }, formatOptionLabel({ ...item, isSelected }))) : (React.createElement(React.Fragment, null, item.disabled ? (React.createElement(DisabledItem, null, item.label)) : (React.createElement("li", { tabIndex: 0, onKeyDown: (e) => {
+    return (React.createElement(React.Fragment, null, formatOptionLabel ? (React.createElement("div", { onClick: e => handleValueChange(e, item) }, formatOptionLabel({ ...item, isSelected }))) : (React.createElement(React.Fragment, null, item.disabled ? (React.createElement(DisabledItem, null, item.label)) : (React.createElement("li", { tabIndex: 0, onKeyDown: (e) => {
             if (e.key === " " || e.key === "Enter") {
-                handleValueChange(item);
+                handleValueChange(e, item);
             }
-        }, "aria-selected": isSelected, role: "option", onClick: () => handleValueChange(item), className: getItemClass() }, item.label))))));
+        }, "aria-selected": isSelected, role: "option", onClick: e => handleValueChange(e, item), className: getItemClass() }, item.label))))));
 };
 
 const GroupItem = ({ item, primaryColor }) => {
@@ -395,14 +395,14 @@ const Select = ({ options = [], value = null, onChange, onSearchInputChange, pla
             toggle();
         }
     }, [isDisabled, toggle]);
-    const handleValueChange = useCallback((selected) => {
+    const handleValueChange = useCallback((e, selected) => {
         function update() {
             if (!isMultiple && !Array.isArray(value)) {
                 closeDropDown();
-                onChange(selected);
+                onChange(e, selected);
             }
             if (isMultiple && (Array.isArray(value) || value === null)) {
-                onChange(value === null ? [selected] : [...value, selected]);
+                onChange(e, value === null ? [selected] : [...value, selected]);
             }
         }
         if (selected !== value) {
@@ -411,13 +411,13 @@ const Select = ({ options = [], value = null, onChange, onSearchInputChange, pla
     }, [closeDropDown, isMultiple, onChange, value]);
     const clearValue = useCallback((e) => {
         e.stopPropagation();
-        onChange(null);
+        onChange(e, null);
     }, [onChange]);
     const removeItem = useCallback((e, item) => {
         if (isMultiple && Array.isArray(value) && value.length) {
             e.stopPropagation();
             const result = value.filter(current => item.value !== current.value);
-            onChange(result.length ? result : null);
+            onChange(e, result.length ? result : null);
         }
     }, [isMultiple, onChange, value]);
     const getSelectClass = useCallback(() => {
@@ -449,7 +449,7 @@ const Select = ({ options = [], value = null, onChange, onSearchInputChange, pla
             formatGroupLabel,
             formatOptionLabel,
             classNames
-        }, value: value, handleValueChange: handleValueChange },
+        }, value: value, handleValueChange: (e, value) => handleValueChange(e, value) },
         React.createElement("div", { className: "relative w-full", ref: ref },
             React.createElement("div", { "aria-expanded": open, onKeyDown: onPressEnterOrSpace, onClick: toggle, className: getSelectClass() },
                 React.createElement("div", { className: "grow pl-2.5 py-2 pr-2 flex flex-wrap gap-1" }, !isMultiple ? (React.createElement("p", { className: "truncate cursor-default select-none" }, value && !Array.isArray(value) ? value.label : placeholder)) : (React.createElement(React.Fragment, null,

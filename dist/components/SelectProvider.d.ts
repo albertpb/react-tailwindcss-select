@@ -1,15 +1,15 @@
-import React from "react";
+import React, { KeyboardEvent, MouseEvent } from "react";
 import { ClassNames, GroupOption, Option } from "./type";
 interface Store {
     value: Option | Option[] | null;
-    handleValueChange: (selected: Option) => void;
+    handleValueChange: (e: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>, selected: Option) => void;
     formatGroupLabel: ((data: GroupOption) => JSX.Element) | null;
     formatOptionLabel: ((data: Option) => JSX.Element) | null;
     classNames?: ClassNames;
 }
 interface Props {
     value: Option | Option[] | null;
-    handleValueChange: (selected: Option) => void;
+    handleValueChange: (e: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>, selected: Option) => void;
     children: JSX.Element;
     otherData: {
         formatGroupLabel: ((data: GroupOption) => JSX.Element) | null;
