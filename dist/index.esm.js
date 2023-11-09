@@ -308,9 +308,9 @@ const Options = ({ list, noOptionsMessage, text, isMultiple, value, primaryColor
     }, [filterByText, removeValues]);
     return (React.createElement("div", { role: "options", className: classNames && classNames.list ? classNames.list : "max-h-72 overflow-y-auto" },
         filterResult.map((item, index) => (React.createElement(React.Fragment, { key: index }, "options" in item ? (React.createElement(React.Fragment, null,
-            React.createElement("div", { className: "px-1.5" },
+            React.createElement("div", null,
                 React.createElement(GroupItem, { primaryColor: primaryColor || DEFAULT_THEME, item: item })),
-            index + 1 < filterResult.length && React.createElement("hr", { className: "my-1" }))) : (React.createElement("div", { className: "px-1.5" },
+            index + 1 < filterResult.length && React.createElement("hr", { className: "my-1" }))) : (React.createElement("div", null,
             React.createElement(Item, { primaryColor: primaryColor || DEFAULT_THEME, item: item })))))),
         filterResult.length === 0 && React.createElement(DisabledItem, null, noOptionsMessage)));
 };
